@@ -1,0 +1,40 @@
+name: Deno update dependencies 
+
+on:
+  workflow_call: # makes this workflow reusable 
+    inputs:
+      files: # 
+        required: true
+        description: 'Glob or space-separated list of files to update. Example: `deps.ts main.ts` or `*.ts`.'        
+        type: string
+      pr-title: 
+        required: false 
+        default: 'refactor: update Deno dependencies'
+        type: string 
+        description: The title of the PR that gets created by workflow 
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write # to create new PRs 
+      contents: write # to push code to branches 
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: 1.x
+
+      - name: Update dependencies
+        run: |
+          deno run -A https://deno.land/x/udd/main.ts ${{ inputs.files }}
+      
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: ${{ inputs.pr-title }}
+          body: >
+            Dependencies updated by [udd](https://github.com/hayd/deno-udd).
+          branch: deno-dependency-updates
+          delete-branch: true # delete after close PR
