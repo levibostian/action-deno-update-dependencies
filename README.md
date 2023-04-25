@@ -39,6 +39,9 @@ jobs:
       # optional input. 
       # Default value: 'refactor: update Deno dependencies'
       pr-title: '[bot] Update Deno dependencies'
+
+      # Destination branch name for the PR to get merged into. Default: main
+      pr-base-branch: main 
 ```
 
 ### Optional: Create automated tests 

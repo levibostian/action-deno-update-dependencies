@@ -12,6 +12,11 @@ on:
         default: 'refactor: update Deno dependencies'
         type: string 
         description: The title of the PR that gets created by workflow 
+      pr-base-branch: 
+        required: false 
+        description: 'Destination branch name for the PR to get merged into. Default: main'
+        type: string
+        default: main 
 
 jobs:
   update-dependencies:
@@ -36,3 +41,4 @@ jobs:
             Dependencies updated by [udd](https://github.com/hayd/deno-udd).
           branch: deno-dependency-updates
           delete-branch: true # delete after close PR
+          base: ${{ inputs.pr-base-branch }} 
