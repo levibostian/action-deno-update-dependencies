@@ -15,6 +15,9 @@ on:
 jobs:
   update-dependencies:
     uses: levibostian/deno-update-dependencies-workflow/.github/workflows/update-deps.yml@main
+    permissions:
+      pull-requests: write # to create new PRs 
+      contents: write # to push code to branches 
     with:
       files: deps.ts # required input
 ```

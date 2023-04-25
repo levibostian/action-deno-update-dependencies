@@ -16,9 +16,7 @@ on:
 jobs:
   update-dependencies:
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write # to create new PRs 
-      contents: write # to push code to branches 
+    # permissions: these will be added by caller 
     steps:
       - uses: actions/checkout@v3
 
