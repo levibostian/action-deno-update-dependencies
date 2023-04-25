@@ -16,7 +16,11 @@ on:
         required: false 
         description: 'Destination branch name for the PR to get merged into. Default: main'
         type: string
-        default: main 
+        default: main
+    secrets:
+      github-token:
+        description: GitHub token used when creating pull request.
+        required: false 
 
 jobs:
   update-dependencies:
@@ -39,6 +43,8 @@ jobs:
           title: ${{ inputs.pr-title }}
           body: >
             Dependencies updated by [udd](https://github.com/hayd/deno-udd).
+            *Note:* Other workflows (such as `on: push` or `on: pull_request`) [may not get executed by the creation of this PR](https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#triggering-further-workflow-runs).
           branch: deno-dependency-updates
           delete-branch: true # delete after close PR
           base: ${{ inputs.pr-base-branch }} 
+          token: ${{ secrets.github-token || secrets.GITHUB_TOKEN }}
