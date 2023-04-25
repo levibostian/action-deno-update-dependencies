@@ -1,0 +1,10 @@
+name: Test workflow 
+
+on: 
+  pull_request:
+
+jobs:
+  update-dependencies:
+    uses: ./.github/workflows/update-deps.yml
+    with:
+      files: tests/deps.ts
