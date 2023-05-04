@@ -5,9 +5,6 @@ on:
 
 jobs:
   update-dependencies:
-    permissions:
-      pull-requests: write # to create new PRs 
-      contents: write # to push code to branches 
     uses: ./.github/workflows/update-deps.yml
     with:
       files: tests/deps.ts
