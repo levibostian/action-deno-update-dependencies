@@ -39,7 +39,7 @@ jobs:
           deno-version: 1.x
 
       - name: Update dependencies
-        run: deno run -A https://raw.githubusercontent.com/levibostian/deno-udd/ignore-prerelease/main.ts ${{ inputs.files }}
+        run: deno run -A https://raw.githubusercontent.com/levibostian/deno-udd/main/main.ts ${{ inputs.files }}
       
       - name: Update lock file if exists 
         if: ${{ inputs.lock-file != '' }}
