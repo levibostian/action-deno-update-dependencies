@@ -11,3 +11,4 @@ jobs:
     uses: ./.github/workflows/update-deps.yml
     with:
       files: tests/deps.ts
+      lock-file: tests/deno.lock

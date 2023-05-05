@@ -41,7 +41,7 @@ jobs:
       - name: Update dependencies
         run: deno run -A https://raw.githubusercontent.com/levibostian/deno-udd/main/main.ts ${{ inputs.files }}
       
-      - name: Update lock file if exists 
+      - name: Update or create lock file if exists 
         if: ${{ inputs.lock-file != '' }}
         run: deno cache --reload --lock='${{ inputs.lock-file }}' --lock-write ${{ inputs.files }}
       
