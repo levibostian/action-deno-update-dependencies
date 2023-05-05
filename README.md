@@ -21,7 +21,7 @@ jobs:
       pull-requests: write # to create new PRs 
       contents: write # to push code to branches 
     with:
-      files: deps.ts # required input
+      files: deps.ts # required input      
 ```
 
 * **Modify your GitHub repository settings to allow PRs to get created**
@@ -52,6 +52,11 @@ jobs:
       # Optional GitHub token used when creating pull request. 
       # See section "Create automated tests" in these docs to learn more about why you might provide this. 
       github-token: ${{ secrets.GH_PUSH_ACCESS_TOKEN }}
+
+      # Create or update existing lock file. 
+      # Learn more about lock files: https://deno.com/manual/basics/modules/integrity_checking
+      # Note: Even if this file already exists, you need to enter this input. The workflow will not find this file automatically for you. 
+      lock-file: deno.lock
 ```
 
 ### Optional: Create automated tests 

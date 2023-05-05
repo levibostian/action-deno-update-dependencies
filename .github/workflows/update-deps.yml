@@ -45,7 +45,7 @@ jobs:
         if: ${{ inputs.lock-file != '' }}
         run: deno cache --reload --lock='${{ inputs.lock-file }}' --lock-write ${{ inputs.files }}
       
-      - name: Create Pull Request
+      - name: Create or update Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
           title: ${{ inputs.pr-title }}
