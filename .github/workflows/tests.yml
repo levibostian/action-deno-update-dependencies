@@ -4,7 +4,10 @@ on:
   pull_request:
 
 jobs:
-  update-dependencies:
+  update-dependencies-and-create-pr:
+    permissions:
+      contents: write # to make to commit
+      pull-requests: write # to create pull request
     uses: ./.github/workflows/update-deps.yml
     with:
       files: tests/deps.ts
