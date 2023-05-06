@@ -7,6 +7,11 @@ on:
         required: true
         description: 'Glob or space-separated list of files to update. Example: `deps.ts main.ts` or `*.ts`.'        
         type: string
+      lock-file:
+        required: false 
+        default: ''
+        description: 'Path to deno.lock file if you want to update it'
+        type: string
       pr-title: 
         required: false 
         default: 'refactor: update Deno dependencies'
@@ -34,16 +39,18 @@ jobs:
           deno-version: 1.x
 
       - name: Update dependencies
-        run: |
-          deno run -A https://deno.land/x/udd/main.ts ${{ inputs.files }}
+        run: deno run -A https://raw.githubusercontent.com/levibostian/deno-udd/main/main.ts ${{ inputs.files }}
       
-      - name: Create Pull Request
+      - name: Update or create lock file if exists 
+        if: ${{ inputs.lock-file != '' }}
+        run: deno cache --reload --lock='${{ inputs.lock-file }}' --lock-write ${{ inputs.files }}
+      
+      - name: Create or update Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
           title: ${{ inputs.pr-title }}
           body: >
-            Dependencies updated by [udd](https://github.com/hayd/deno-udd).
-            *Note:* Other workflows (such as `on: push` or `on: pull_request`) [may not get executed by the creation of this PR](https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#triggering-further-workflow-runs).
+            Dependencies updated by [udd](https://github.com/hayd/deno-udd)
           branch: deno-dependency-updates
           delete-branch: true # delete after close PR
           base: ${{ inputs.pr-base-branch }} 
