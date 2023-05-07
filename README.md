@@ -12,7 +12,7 @@ name: Update Deno dependencies
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *" # every day at 12am. https://cron.help/#0_0_*_*_*
+    - cron: "0 0 * * 0" # every Sunday at 12am. https://cron.help/#0_0_*_*_0
 
 jobs:
   update-dependencies:
